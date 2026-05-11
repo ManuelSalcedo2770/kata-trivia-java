@@ -85,6 +85,9 @@ public class Game implements IGame {
       if (player.getPosition() - 1 == 2) return "Sports";
       if (player.getPosition() - 1 == 6) return "Sports";
       if (player.getPosition() - 1 == 10) return "Sports";
+      if (player.getPosition() - 1 == 3) return "Geography";
+      if (player.getPosition() - 1 == 7) return "Geography";
+      if (player.getPosition() - 1 == 11) return "Geography";
       return "Rock";
    }
 

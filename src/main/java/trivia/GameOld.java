@@ -15,6 +15,7 @@ public class GameOld implements IGame {
    LinkedList scienceQuestions = new LinkedList();
    LinkedList sportsQuestions = new LinkedList();
    LinkedList rockQuestions = new LinkedList();
+   LinkedList geographyQuestions = new LinkedList();
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
@@ -25,6 +26,7 @@ public class GameOld implements IGame {
          scienceQuestions.addLast(("Science Question " + i));
          sportsQuestions.addLast(("Sports Question " + i));
          rockQuestions.addLast(createRockQuestion(i));
+         geographyQuestions.addLast("Geography Question " + i);
       }
    }
 
@@ -96,6 +98,8 @@ public class GameOld implements IGame {
          System.out.println(sportsQuestions.remove(0));
       if (currentCategory() == "Rock")
          System.out.println(rockQuestions.remove(0));
+      if (currentCategory() == "Geography")
+         System.out.println(geographyQuestions.remove(0));
    }
 
 
@@ -109,6 +113,9 @@ public class GameOld implements IGame {
       if (places[currentPlayer] - 1 == 2) return "Sports";
       if (places[currentPlayer] - 1 == 6) return "Sports";
       if (places[currentPlayer] - 1 == 10) return "Sports";
+      if (places[currentPlayer] - 1 == 3) return "Geography";
+      if (places[currentPlayer] - 1 == 7) return "Geography";
+      if (places[currentPlayer] - 1 == 11) return "Geography";
       return "Rock";
    }
 
