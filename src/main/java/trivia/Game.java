@@ -5,6 +5,10 @@ import java.util.LinkedList;
 
 // REFACTOR ME
 public class Game implements IGame {
+   private static final int WINNING_COINS = 6;
+   private static final int QUESTIONS_PER_CATEGORY = 50;
+   private static final int BOARD_SIZE = 12;
+
    ArrayList players = new ArrayList();
    int[] positions = new int[6];
    int[] coins = new int[6];
@@ -19,7 +23,7 @@ public class Game implements IGame {
    boolean isGettingOutOfPenaltyBox;
 
    public Game() {
-      for (int i = 0; i < 50; i++) {
+      for (int i = 0; i < QUESTIONS_PER_CATEGORY; i++) {
          popQuestions.addLast("Pop Question " + i);
          scienceQuestions.addLast(("Science Question " + i));
          sportsQuestions.addLast(("Sports Question " + i));
@@ -60,7 +64,7 @@ public class Game implements IGame {
 
             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
             positions[currentPlayer] = positions[currentPlayer] + roll;
-            if (positions[currentPlayer] > 12) positions[currentPlayer] = positions[currentPlayer] - 12;
+            if (positions[currentPlayer] > BOARD_SIZE) positions[currentPlayer] = positions[currentPlayer] - BOARD_SIZE;
 
             System.out.println(players.get(currentPlayer)
                                + "'s new location is "
@@ -75,7 +79,7 @@ public class Game implements IGame {
       } else {
 
          positions[currentPlayer] = positions[currentPlayer] + roll;
-         if (positions[currentPlayer] > 12) positions[currentPlayer] = positions[currentPlayer] - 12;
+         if (positions[currentPlayer] > BOARD_SIZE) positions[currentPlayer] = positions[currentPlayer] - BOARD_SIZE;
 
          System.out.println(players.get(currentPlayer)
                             + "'s new location is "
@@ -162,6 +166,6 @@ public class Game implements IGame {
 
 
    private boolean didPlayerWin() {
-      return !(coins[currentPlayer] == 6);
+      return !(coins[currentPlayer] == WINNING_COINS);
    }
 }
