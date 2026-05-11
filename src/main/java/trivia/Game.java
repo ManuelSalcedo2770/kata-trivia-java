@@ -6,8 +6,8 @@ import java.util.LinkedList;
 // REFACTOR ME
 public class Game implements IGame {
    ArrayList players = new ArrayList();
-   int[] places = new int[6];
-   int[] purses = new int[6];
+   int[] positions = new int[6];
+   int[] coins = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
    LinkedList popQuestions = new LinkedList();
@@ -31,13 +31,13 @@ public class Game implements IGame {
       return "Rock Question " + index;
    }
 
-   public boolean isPlayable() {
+   public boolean hasEnoughPlayers() {
       return (howManyPlayers() >= 2);
    }
 
    public boolean add(String playerName) {
-      places[howManyPlayers()] = 1;
-      purses[howManyPlayers()] = 0;
+      positions[howManyPlayers()] = 1;
+      coins[howManyPlayers()] = 0;
       inPenaltyBox[howManyPlayers()] = false;
       players.add(playerName);
 
@@ -59,12 +59,12 @@ public class Game implements IGame {
             isGettingOutOfPenaltyBox = true;
 
             System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+            positions[currentPlayer] = positions[currentPlayer] + roll;
+            if (positions[currentPlayer] > 12) positions[currentPlayer] = positions[currentPlayer] - 12;
 
             System.out.println(players.get(currentPlayer)
                                + "'s new location is "
-                               + places[currentPlayer]);
+                               + positions[currentPlayer]);
             System.out.println("The category is " + currentCategory());
             askQuestion();
          } else {
@@ -74,12 +74,12 @@ public class Game implements IGame {
 
       } else {
 
-         places[currentPlayer] = places[currentPlayer] + roll;
-         if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+         positions[currentPlayer] = positions[currentPlayer] + roll;
+         if (positions[currentPlayer] > 12) positions[currentPlayer] = positions[currentPlayer] - 12;
 
          System.out.println(players.get(currentPlayer)
                             + "'s new location is "
-                            + places[currentPlayer]);
+                            + positions[currentPlayer]);
          System.out.println("The category is " + currentCategory());
          askQuestion();
       }
@@ -99,15 +99,15 @@ public class Game implements IGame {
 
 
    private String currentCategory() {
-      if (places[currentPlayer] - 1 == 0) return "Pop";
-      if (places[currentPlayer] - 1 == 4) return "Pop";
-      if (places[currentPlayer] - 1 == 8) return "Pop";
-      if (places[currentPlayer] - 1 == 1) return "Science";
-      if (places[currentPlayer] - 1 == 5) return "Science";
-      if (places[currentPlayer] - 1 == 9) return "Science";
-      if (places[currentPlayer] - 1 == 2) return "Sports";
-      if (places[currentPlayer] - 1 == 6) return "Sports";
-      if (places[currentPlayer] - 1 == 10) return "Sports";
+      if (positions[currentPlayer] - 1 == 0) return "Pop";
+      if (positions[currentPlayer] - 1 == 4) return "Pop";
+      if (positions[currentPlayer] - 1 == 8) return "Pop";
+      if (positions[currentPlayer] - 1 == 1) return "Science";
+      if (positions[currentPlayer] - 1 == 5) return "Science";
+      if (positions[currentPlayer] - 1 == 9) return "Science";
+      if (positions[currentPlayer] - 1 == 2) return "Sports";
+      if (positions[currentPlayer] - 1 == 6) return "Sports";
+      if (positions[currentPlayer] - 1 == 10) return "Sports";
       return "Rock";
    }
 
@@ -115,10 +115,10 @@ public class Game implements IGame {
       if (inPenaltyBox[currentPlayer]) {
          if (isGettingOutOfPenaltyBox) {
             System.out.println("Answer was correct!!!!");
-            purses[currentPlayer]++;
+            coins[currentPlayer]++;
             System.out.println(players.get(currentPlayer)
                                + " now has "
-                               + purses[currentPlayer]
+                               + coins[currentPlayer]
                                + " Gold Coins.");
 
             boolean winner = didPlayerWin();
@@ -136,10 +136,10 @@ public class Game implements IGame {
       } else {
 
          System.out.println("Answer was corrent!!!!");
-         purses[currentPlayer]++;
+         coins[currentPlayer]++;
          System.out.println(players.get(currentPlayer)
                             + " now has "
-                            + purses[currentPlayer]
+                            + coins[currentPlayer]
                             + " Gold Coins.");
 
          boolean winner = didPlayerWin();
@@ -162,6 +162,6 @@ public class Game implements IGame {
 
 
    private boolean didPlayerWin() {
-      return !(purses[currentPlayer] == 6);
+      return !(coins[currentPlayer] == 6);
    }
 }
