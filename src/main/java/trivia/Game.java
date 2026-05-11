@@ -39,35 +39,34 @@ public class Game implements IGame {
       System.out.println("They have rolled a " + roll);
 
       if (player.isInPenaltyBox()) {
-         if (roll % 2 != 0) {
-            isGettingOutOfPenaltyBox = true;
-
-            System.out.println(player + " is getting out of the penalty box");
-            player.setPosition(player.getPosition() + roll);
-            if (player.getPosition() > BOARD_SIZE) player.setPosition(player.getPosition() - BOARD_SIZE);
-
-            System.out.println(player
-                               + "'s new location is "
-                               + player.getPosition());
-            System.out.println("The category is " + currentCategory());
-            askQuestion();
-         } else {
-            System.out.println(player + " is not getting out of the penalty box");
-            isGettingOutOfPenaltyBox = false;
-         }
-
+         handlePenaltyBoxTurn(player, roll);
       } else {
-
-         player.setPosition(player.getPosition() + roll);
-         if (player.getPosition() > BOARD_SIZE) player.setPosition(player.getPosition() - BOARD_SIZE);
-
-         System.out.println(player
-                            + "'s new location is "
-                            + player.getPosition());
-         System.out.println("The category is " + currentCategory());
-         askQuestion();
+         handleNormalTurn(player, roll);
       }
+   }
 
+   private void handlePenaltyBoxTurn(Player player, int roll) {
+      if (roll % 2 != 0) {
+         isGettingOutOfPenaltyBox = true;
+         System.out.println(player + " is getting out of the penalty box");
+         movePlayer(player, roll);
+         askQuestion();
+      } else {
+         isGettingOutOfPenaltyBox = false;
+         System.out.println(player + " is not getting out of the penalty box");
+      }
+   }
+
+   private void handleNormalTurn(Player player, int roll) {
+      movePlayer(player, roll);
+      askQuestion();
+   }
+
+   private void movePlayer(Player player, int roll) {
+      player.setPosition(player.getPosition() + roll);
+      if (player.getPosition() > BOARD_SIZE) player.setPosition(player.getPosition() - BOARD_SIZE);
+      System.out.println(player + "'s new location is " + player.getPosition());
+      System.out.println("The category is " + currentCategory());
    }
 
    private void askQuestion() {
