@@ -29,4 +29,6 @@ hs_err_pid*
 .classpath
 *.iml
 
-prod/
+prod/python/.venv/
+python/__pycache__/
+python/*.pyc
