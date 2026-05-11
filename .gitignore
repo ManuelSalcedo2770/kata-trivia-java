@@ -32,3 +32,4 @@ hs_err_pid*
 prod/python/.venv/
 python/__pycache__/
 python/*.pyc
+.pytest_cache/
